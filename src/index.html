@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0">
+  <title>Stencil Component Starter</title>
+  <script src="/build/mycomponent.js"></script>
+  <script type="module">
+    const tt = document.querySelector('turn-touch');
+    const button = document.querySelector('button');
+    button.addEventListener('click', async () => {
+      await tt.connect();
+      console.log('connected');
+      tt.onLeft = () => {
+        console.log('left');
+      }
+      tt.onRight = () => {
+        console.log('right');
+      }
+    })
+  </script>
+
+</head>
+
+<body>
+
+  <turn-touch></turn-touch>
+  <button>Click</button>
+
+</body>
+
+</html>
