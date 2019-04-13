@@ -5,33 +5,43 @@
  */
 
 
-import '@stencil/core';
-
-
+import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
+import { JSX } from '@stencil/core';
 
 
 export namespace Components {
-
   interface TurnTouch {
     'connect': () => Promise<void>;
     'onLeft': Function;
     'onRight': Function;
   }
-  interface TurnTouchAttributes extends StencilHTMLAttributes {
-    'onButtonPress'?: (event: CustomEvent) => void;
+}
+
+declare namespace LocalJSX {
+  interface TurnTouch extends JSXBase.HTMLAttributes {
+    'onButtonPress'?: (event: CustomEvent<any>) => void;
     'onLeft'?: Function;
     'onRight'?: Function;
+  }
+
+  interface ElementInterfaces {
+    'TurnTouch': Components.TurnTouch;
+  }
+
+  interface IntrinsicElements {
+    'TurnTouch': LocalJSX.TurnTouch;
+  }
+}
+export { LocalJSX as JSX };
+
+declare module "@stencil/core" {
+  export namespace JSX {
+    interface ElementInterfaces extends LocalJSX.ElementInterfaces {}
+    interface IntrinsicElements extends LocalJSX.IntrinsicElements {}
   }
 }
 
 declare global {
-  interface StencilElementInterfaces {
-    'TurnTouch': Components.TurnTouch;
-  }
-
-  interface StencilIntrinsicElements {
-    'turn-touch': Components.TurnTouchAttributes;
-  }
 
 
   interface HTMLTurnTouchElement extends Components.TurnTouch, HTMLStencilElement {}
@@ -39,7 +49,6 @@ declare global {
     prototype: HTMLTurnTouchElement;
     new (): HTMLTurnTouchElement;
   };
-
   interface HTMLElementTagNameMap {
     'turn-touch': HTMLTurnTouchElement
   }
@@ -47,14 +56,5 @@ declare global {
   interface ElementTagNameMap {
     'turn-touch': HTMLTurnTouchElement;
   }
-
-
-  export namespace JSX {
-    export interface Element {}
-    export interface IntrinsicElements extends StencilIntrinsicElements {
-      [tagName: string]: any;
-    }
-  }
-  export interface HTMLAttributes extends StencilHTMLAttributes {}
-
 }
+
