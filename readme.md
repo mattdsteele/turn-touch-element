@@ -4,6 +4,8 @@
 
 Web component to interact with a [Turn Touch](https://shop.turntouch.com/) remote using Web Bluetooth.
 
+View demo (requres a Turn Touch, obvs): https://output.jsbin.com/dohenow
+
 Learn more about Web Bluetooth: https://steele.blue/web-bluetooth/
 
 # Usage
